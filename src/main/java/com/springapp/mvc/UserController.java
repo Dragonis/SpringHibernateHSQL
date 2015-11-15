@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,10 +16,20 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", userRepository.findAll());
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("springs.xml");
+
+        Product product = (Product) context.getBean("Product");
+        ProductRepository productRepository = (ProductRepository) context.getBean("ProductRepositoryImpl");
+        System.out.println("Nazwa: " + product.getName());
+        System.out.println("Cena: " + product.getPrice());
+        productRepository.save(product);
+        System.out.println("Zapisano rekord w bazie danych.");
         return "users";
     }
 
