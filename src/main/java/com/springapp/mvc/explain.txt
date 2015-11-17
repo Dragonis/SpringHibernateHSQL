@@ -1,0 +1,3 @@
+Domain/DAO - Table representive object with Table adnotatations with getters and setters
+Repository - Database operations such like findOne, findAll, save, delete and so on on objects
+Service - Operation on concrete object using repository operations.

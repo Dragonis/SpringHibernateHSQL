@@ -16,6 +16,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
@@ -23,13 +25,13 @@ public class UserController {
         model.addAttribute("users", userRepository.findAll());
 
         ApplicationContext context = new ClassPathXmlApplicationContext("springs.xml");
-
         Product product = (Product) context.getBean("Product");
+        User user = (User) context.getBean("User");
         ProductRepository productRepository = (ProductRepository) context.getBean("ProductRepositoryImpl");
         System.out.println("Nazwa: " + product.getName());
         System.out.println("Cena: " + product.getPrice());
         productRepository.save(product);
-        System.out.println("Zapisano rekord w bazie danych.");
+        System.out.println("Zapisano rekord w bazie danych: " + userService.getUserNameAndSurname((long) 1));
         return "users";
     }
 

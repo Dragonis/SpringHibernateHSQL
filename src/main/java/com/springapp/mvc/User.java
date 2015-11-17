@@ -1,7 +1,10 @@
 package com.springapp.mvc;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 
+@Transactional
 @Entity(name = "account")
 public class User {
     @Id
